@@ -129,3 +129,43 @@ h2 {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .lift-glow {
+    border: 1px solid rgb(var(--brand-rgb) / 0.6);
+    transition: transform 250ms ease, box-shadow 250ms ease,
+      border-color 250ms ease, background-color 250ms ease, color 250ms ease;
+  }
+
+  .lift-glow:hover {
+    border-color: rgb(var(--brand-rgb) / 1);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgb(var(--brand-rgb) / 0.35);
+  }
+
+  .accent-fill {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--brand-start-rgb) / 0.95),
+      rgb(var(--brand-end-rgb) / 0.9)
+    );
+    color: var(--foreground);
+  }
+
+  .accent-fill:hover {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--brand-start-rgb) / 1),
+      rgb(var(--brand-end-rgb) / 1)
+    );
+  }
+
+  .accent-outline {
+    background-color: transparent;
+    color: var(--foreground);
+  }
+
+  .accent-outline:hover {
+    background-color: rgb(var(--brand-rgb) / 0.14);
+  }
+}
