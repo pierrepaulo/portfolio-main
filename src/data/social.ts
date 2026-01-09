@@ -1,6 +1,6 @@
 import type { IconType } from "react-icons";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
-import { FiMail, FiPhone } from "react-icons/fi";
+import { FiMail } from "react-icons/fi";
 
 export type SocialLink = {
   label: string;
@@ -30,27 +30,19 @@ export const socials: SocialLink[] = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/pierrepaulo/",
+    href: "https://www.linkedin.com/in/pierre-paulo-temer/",
     icon: FaLinkedinIn,
-    detail: "linkedin.com/in/pierrepaulo",
+    detail: "www.linkedin.com/in/pierre-paulo-temer/",
     showInHeader: true,
     showInContact: true,
   },
   {
     label: "WhatsApp",
-    href: "https://wa.me/5500000000000",
+    href: "https://wa.me/5533991993858",
     icon: FaWhatsapp,
-    detail: "+55 (00) 00000-0000",
+    detail: "+55 (33) 99199-3858",
     showInHeader: false,
     showInContact: true,
-  },
-  {
-    label: "Telefone",
-    href: "tel:+5533991993858",
-    icon: FiPhone,
-    detail: "+55 33 99199-3858",
-    showInHeader: false,
-    showInContact: false,
   },
 ];
 
