@@ -19,7 +19,7 @@ export function Techs() {
                 key={tech.id}
                 className="flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card/40 px-3 py-4 text-center transition-colors duration-300 hover:border-brand/60 hover:bg-card/60"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/60 bg-background/40">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl  ">
                   <Icon
                     className="text-2xl sm:text-3xl"
                     style={{ color: tech.color }}

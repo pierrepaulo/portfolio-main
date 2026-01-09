@@ -74,7 +74,7 @@ export const techs: Tech[] = [
     id: "prisma",
     name: "Prisma",
     icon: SiPrisma,
-    color: "#2D3748",
+    color: "#339933",
   },
   {
     id: "docker",
