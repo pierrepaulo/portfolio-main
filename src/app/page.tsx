@@ -1,8 +1,20 @@
+import { Header } from "@/components/layout/Header";
+import { About } from "@/components/sections/About";
+import { Contact } from "@/components/sections/Contact";
+import { Hero } from "@/components/sections/Hero";
+import { Projects } from "@/components/sections/Projects";
+import { Techs } from "@/components/sections/Techs";
+
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen text-foreground">
+      <Header />
       <main>
-        <h1>teste</h1>
+        <Hero />
+        <Projects />
+        <About />
+        <Techs />
+        <Contact />
       </main>
     </div>
   );
