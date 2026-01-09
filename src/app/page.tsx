@@ -7,9 +7,9 @@ import { Techs } from "@/components/sections/Techs";
 
 export default function Home() {
   return (
-    <div className="min-h-screen text-foreground">
+    <div>
       <Header />
-      <main>
+      <main className="space-y-24">
         <Hero />
         <Projects />
         <About />
