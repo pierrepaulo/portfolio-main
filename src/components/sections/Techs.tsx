@@ -4,7 +4,7 @@ import { techs } from "@/data/techs";
 
 export function Techs() {
   return (
-    <section id="techs">
+    <section id="techs" className="py-20">
       <Container>
         <SectionHeader
           title="Tecnologias"

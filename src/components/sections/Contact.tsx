@@ -61,7 +61,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contato">
+    <section id="contato" className="py-20">
       <Container>
         <SectionHeader
           title="Entre em contato"

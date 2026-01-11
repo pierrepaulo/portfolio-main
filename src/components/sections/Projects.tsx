@@ -11,7 +11,7 @@ const normalizeUrl = (url: string) =>
 
 export function Projects() {
   return (
-    <section id="projetos">
+    <section id="projetos" className="py-20">
       <Container>
         <SectionHeader
           title="Projetos em destaque"
