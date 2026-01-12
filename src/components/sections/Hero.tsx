@@ -1,11 +1,14 @@
 "use client";
 
 import { Container } from "@/components/common/Container";
+import { SplitText } from "@/components/common/SplitText";
 import FloatingLines from "@/components/FloatingLines";
 import { Button } from "@/components/ui/button";
 import { FiArrowDown, FiDownload } from "react-icons/fi";
 
 const heroLinesGradient = ["#7c3aed", "#8b5cf6", "#6366f1"];
+const heroDescription =
+  "Aplicações escaláveis com TypeScript/JavaScript (Node.js e React), com foco em arquitetura limpa, código limpo e decisões técnicas alinhadas ao negócio.";
 
 export function Hero() {
   return (
@@ -29,16 +32,22 @@ export function Hero() {
           </p>
           <div className="space-y-2">
             <h1 className="text-4xl font-semibold leading-tight text-foreground sm:text-5xl lg:text-6xl text-center">
-              Pierre Paulo
+              <SplitText text="Pierre Paulo" />
             </h1>
             <h2 className="text-3xl font-semibold leading-tight text-foreground sm:text-4xl lg:text-5xl text-center">
-              Desenvolvedor FullStack
+              <SplitText text="Desenvolvedor FullStack" delay={0.2} />
             </h2>
           </div>
-          <p className="mx-auto max-w-prose text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Aplicações escaláveis com TypeScript/JavaScript (Node.js e React),
-            com foco em arquitetura limpa, código limpo e decisões técnicas
-            alinhadas ao negócio.
+          <p className="mx-auto max-w-prose text-base leading-relaxed text-muted-foreground sm:text-lg font-semibold">
+            <SplitText
+              text={heroDescription}
+              delay={0.35}
+              stagger={0.01}
+              duration={0.35}
+              yOffset={8}
+              splitBy="word"
+              preserveWhitespace={false}
+            />
           </p>
 
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
