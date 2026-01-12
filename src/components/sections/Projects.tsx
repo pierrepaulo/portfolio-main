@@ -5,6 +5,13 @@ import { projects } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import Image from "next/image";
 
 const normalizeUrl = (url: string) =>
@@ -23,7 +30,9 @@ export function Projects() {
         <div className="grid gap-6">
           {projects.map((project, index) => {
             const Icon = project.icon;
-            const image = project.images[0];
+            const images = project.images;
+            const hasImages = images.length > 0;
+            const hasMultipleImages = images.length > 1;
             const liveUrl = project.liveUrl
               ? normalizeUrl(project.liveUrl)
               : "";
@@ -34,22 +43,44 @@ export function Projects() {
                 <Card className="overflow-hidden py-0 lift-glow">
                   <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-stretch">
                     <div className="p-4 md:self-center">
-                      <div className="relative min-h-65 overflow-hidden rounded-lg sm:min-h-70 lg:min-h-75">
-                        {image ? (
-                          <Image
-                            src={image}
-                            alt={`Preview do projeto ${project.title}`}
-                            fill
-                            className="object-contain"
-                            sizes="(min-width: 768px) 45vw, 100vw"
-                          />
-                        ) : (
+                      {hasImages ? (
+                        <Carousel
+                          className="min-h-65 overflow-hidden rounded-lg sm:min-h-70 lg:min-h-75"
+                          opts={{ align: "start", loop: hasMultipleImages }}
+                        >
+                          <CarouselContent className="ml-0">
+                            {images.map((image, imageIndex) => (
+                              <CarouselItem
+                                key={`${project.id}-image-${imageIndex}`}
+                                className="pl-0"
+                              >
+                                <div className="relative min-h-65 sm:min-h-70 lg:min-h-75">
+                                  <Image
+                                    src={image}
+                                    alt={`Preview do projeto ${project.title} - imagem ${imageIndex + 1}`}
+                                    fill
+                                    className="object-contain"
+                                    sizes="(min-width: 768px) 45vw, 100vw"
+                                  />
+                                </div>
+                              </CarouselItem>
+                            ))}
+                          </CarouselContent>
+                          {hasMultipleImages ? (
+                            <>
+                              <CarouselPrevious className="left-3" />
+                              <CarouselNext className="right-3" />
+                            </>
+                          ) : null}
+                        </Carousel>
+                      ) : (
+                        <div className="relative min-h-65 overflow-hidden rounded-lg sm:min-h-70 lg:min-h-75">
                           <div className="flex h-full items-center justify-center gap-3 text-muted-foreground">
                             <Icon className="text-2xl" aria-hidden="true" />
                             <span className="text-sm">Sem imagem</span>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
 
                     <div className="flex flex-col">
