@@ -19,8 +19,8 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "RestauranteAPP - Pedidos via Garçom + Painel Administrativo",
-    title: "RestaurantApp",
+    id: "RestauranteAPP",
+    title: "RestaurantApp - Pedidos via Garçom + Painel Administrativo",
     icon: FaUtensils,
     description:
       "MVP de um sistema para restaurantes que centraliza a gestão do cardápio e o fluxo de pedidos. O administrador cadastra e organiza categorias e produtos, enquanto o garçom realiza os pedidos pelo celular. Assim que um pedido é enviado, ele é registrado no backend e exibido imediatamente no sistema, facilitando o acompanhamento e a operação do atendimento.",
@@ -98,7 +98,7 @@ export const projects: Project[] = [
   },
   {
     id: "easydiet",
-    title: "EasyDiet - ",
+    title: "EasyDiet - Gerador de dietas com IA",
     icon: FaDumbbell,
     description:
       "EasyDiete é um gerador inteligente de dietas integrado com IA. O usuário informa dados como peso, altura, frequência de exercícios e objetivo (perder peso, manter ou ganhar massa), e o sistema utiliza o ChatGPT para criar um plano alimentar personalizado de acordo com as características e o foco de cada pessoa.",
