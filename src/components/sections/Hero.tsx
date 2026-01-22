@@ -56,7 +56,7 @@ export function Hero() {
               size="lg"
               className="lift-glow accent-fill rounded-full px-8 py-3 text-base"
             >
-              <a href="/curriculo-pierre.pdf" target="_blank" rel="noreferrer">
+              <a href="/cv-pierrepaulo.pdf" target="_blank" rel="noreferrer">
                 <FiDownload className="text-base" aria-hidden="true" />
                 Ver curriculo
               </a>
