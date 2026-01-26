@@ -1,18 +1,30 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  preload: true,
   variable: "--font-inter",
 });
 
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-orbitron",
+});
+
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-rajdhani",
+});
+
 export const metadata: Metadata = {
-  title: "Pierre Paulo - Desenvolvedor FullStack",
+  title: "Pierre Paulo | FullStack Developer",
   description:
-    "Portfólio profissional de Pierre Paulo, desenvolvedor FullStack especializado em produtos digitais modernos.",
+    "Building high-performance digital products with Next.js and React. Specialized in modern web development.",
 };
 
 export default function RootLayout({
@@ -21,8 +33,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`h-full ${inter.variable}`}>
-      <body className={`min-h-full antialiased ${inter.className}`}>
+    <html
+      lang="pt-BR"
+      className={`h-full ${inter.variable} ${orbitron.variable} ${rajdhani.variable}`}
+    >
+      <body
+        className={`min-h-full antialiased bg-background text-foreground font-sans`}
+      >
+        <div className="scanlines" aria-hidden="true" />
         {children}
       </body>
     </html>

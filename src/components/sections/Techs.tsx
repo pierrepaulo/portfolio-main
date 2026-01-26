@@ -21,16 +21,23 @@ export function Techs() {
               return (
                 <li
                   key={tech.id}
-                  className="flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card/40 px-3 py-4 text-center transition-colors duration-300 hover:border-brand/60 hover:bg-card/60"
+                  className="flex flex-col items-center gap-2 clip-chamfer-sm border border-white/5 bg-black/40 px-3 py-4 text-center transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_15px_rgba(0,240,255,0.1)] group"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl  ">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 group-hover:bg-primary/10 transition-colors">
                     <Icon
-                      className="text-2xl sm:text-3xl"
-                      style={{ color: tech.color }}
+                      className="text-2xl sm:text-3xl transition-transform group-hover:scale-110"
+                      style={{
+                        color:
+                          tech.color === "#000000" ? "#FFFFFF" : tech.color,
+                        filter:
+                          tech.color === "#000000"
+                            ? "drop-shadow(0 0 2px rgba(255,255,255,0.5))"
+                            : undefined,
+                      }}
                       aria-hidden="true"
                     />
                   </span>
-                  <span className="text-xs font-medium text-foreground sm:text-sm">
+                  <span className="text-xs font-mono text-muted-foreground group-hover:text-primary sm:text-sm">
                     {tech.name}
                   </span>
                 </li>

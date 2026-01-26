@@ -85,6 +85,7 @@ export const projects: Project[] = [
       "PostgreSQL",
       "Webhhooks",
       "Zod",
+      "TanStack Query",
     ],
     images: [
       "/images/projects/ClinicaPRO/image-1.png",

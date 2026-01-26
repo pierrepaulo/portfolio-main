@@ -62,20 +62,23 @@ export function Contact() {
   };
 
   return (
-    <section id="contato" className="py-20">
+    <section id="contato" className="py-24 relative overflow-hidden">
+      {/* Background circuit decoration */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(0,240,255,0.05)_0%,transparent_70%)] pointer-events-none" />
+
       <Container>
         <Reveal direction="left">
           <SectionHeader
             title="Entre em contato"
-            subtitle="Vamos alinhar expectativas, stack e proximos passos."
+            subtitle="Vamos conversar? Envie uma mensagem e vamos alinhar expectativas."
           />
         </Reveal>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch">
-          <Reveal direction="left">
+          <Reveal direction="left" delay={0.2}>
             <div className="flex h-full flex-col gap-6">
-              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Fique à vontade para entrar em contato pelo canal que preferir.
-                Responderei o mais breve possível.
+              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg border-l-2 border-primary/20 pl-4">
+                Canais de comunicação abertos. Selecione a frequência abaixo ou
+                transmita dados via formulário criptografado.
               </p>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
                 {contactChannels.map((channel) => {
@@ -85,19 +88,19 @@ export function Contact() {
                   return (
                     <Card
                       key={channel.label}
-                      className="border-border/60 bg-card/40 py-0 lift-glow"
+                      className="border-white/10 bg-black/40 py-0 hover:border-primary/50 transition-colors group"
                     >
-                      <CardContent className="flex items-center gap-3 p-4">
-                        <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-border/60 bg-background/40 text-brand">
-                          <Icon className="text-lg" aria-hidden="true" />
+                      <CardContent className="flex items-center gap-4 p-4">
+                        <span className="flex h-12 w-12 items-center justify-center clip-chamfer-sm bg-primary/10 text-primary group-hover:bg-primary group-hover:text-black transition-all">
+                          <Icon className="text-xl" aria-hidden="true" />
                         </span>
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold text-foreground">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-mono text-primary/60 uppercase tracking-wider mb-1">
                             {channel.label}
                           </p>
                           <a
                             href={channel.href}
-                            className="block truncate text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            className="block truncate text-sm text-foreground font-medium hover:text-primary transition-colors"
                             target={isExternal ? "_blank" : undefined}
                             rel={isExternal ? "noreferrer" : undefined}
                           >
@@ -111,29 +114,31 @@ export function Contact() {
               </div>
             </div>
           </Reveal>
-          <Reveal direction="right">
-            <Card className="h-full rounded-2xl border-border/60 bg-card/40 py-0">
+          <Reveal direction="right" delay={0.4}>
+            <Card className="h-full border-white/10 bg-black/60 backdrop-blur-md py-0 tech-card">
               <CardContent className="flex h-full flex-col p-6 sm:p-8">
                 <Form {...form}>
                   <form
-                    className="flex h-full flex-col gap-5"
+                    className="flex h-full flex-col gap-6"
                     onSubmit={form.handleSubmit(onSubmit)}
                     noValidate
                   >
-                    <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="grid gap-6 sm:grid-cols-2">
                       <FormField
                         control={form.control}
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Nome</FormLabel>
+                            <FormLabel className="text-primary/80 font-mono text-xs uppercase">
+                              Identifique-se (Nome)
+                            </FormLabel>
                             <FormControl>
                               <Input
                                 {...field}
                                 type="text"
                                 autoComplete="name"
-                                placeholder="Seu nome"
-                                className="h-auto border-border/60 bg-background/40 px-4 py-3 text-sm"
+                                placeholder="Digite seu nome..."
+                                className="h-12 border-white/10 bg-black/40 text-sm focus-visible:ring-primary/50 focus-visible:border-primary"
                               />
                             </FormControl>
                             <div className="min-h-4">
@@ -148,14 +153,16 @@ export function Contact() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel className="text-primary/80 font-mono text-xs uppercase">
+                              Comunicação (Email)
+                            </FormLabel>
                             <FormControl>
                               <Input
                                 {...field}
                                 type="email"
                                 autoComplete="email"
-                                placeholder="seu@email.com"
-                                className="h-auto border-border/60 bg-background/40 px-4 py-3 text-sm"
+                                placeholder="pierre@exemplo.com"
+                                className="h-12 border-white/10 bg-black/40 text-sm focus-visible:ring-primary/50 focus-visible:border-primary"
                               />
                             </FormControl>
                             <div className="min-h-4">
@@ -171,13 +178,15 @@ export function Contact() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Mensagem</FormLabel>
+                          <FormLabel className="text-primary/80 font-mono text-xs uppercase">
+                            PACOTE DE DADOS (Mensagem)
+                          </FormLabel>
                           <FormControl>
                             <textarea
                               {...field}
                               rows={7}
-                              className="w-full resize-none rounded-lg border border-border/60 bg-background/40 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:ring-2 focus-visible:ring-ring/40 lg:min-h-40"
-                              placeholder="Conte um pouco sobre o que voce precisa"
+                              className="w-full resize-none rounded-none border border-white/10 bg-black/40 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground outline-none transition focus-visible:ring-1 focus-visible:ring-primary/50 focus-visible:border-primary lg:min-h-40"
+                              placeholder="Digite sua mensagem..."
                             />
                           </FormControl>
                           <div className="min-h-4">
@@ -191,7 +200,7 @@ export function Contact() {
                       className="absolute -left-2499.75 top-auto h-0 w-0 overflow-hidden"
                       aria-hidden="true"
                     >
-                      <label htmlFor="company">Company</label>
+                      <label htmlFor="company">Empresa</label>
                       <input
                         id="company"
                         type="text"
@@ -205,22 +214,22 @@ export function Contact() {
                       <Button
                         type="submit"
                         disabled={form.formState.isSubmitting}
-                        className="lift-glow accent-fill rounded-full cursor-pointer"
+                        className="clip-chamfer bg-primary text-black hover:bg-white hover:text-black font-bold tracking-wider px-8"
                       >
                         {form.formState.isSubmitting
-                          ? "Enviando..."
-                          : "Enviar mensagem"}
+                          ? "TRANSMITINDO..."
+                          : "INICIAR TRANSMISSÃO"}
                       </Button>
 
-                      <div className="text-sm" aria-live="polite">
+                      <div className="text-sm font-mono" aria-live="polite">
                         {status === "success" ? (
-                          <span className="text-green-500">
-                            Mensagem enviada com sucesso.
+                          <span className="text-green-500 animate-pulse">
+                            [SUCCESSo] Mensagem enviada com sucesso.
                           </span>
                         ) : null}
                         {status === "error" ? (
                           <span className="text-destructive">
-                            Nao foi possivel enviar. Tente novamente.
+                            [ERROR] Falha na transmissão. Tente novamente.
                           </span>
                         ) : null}
                       </div>

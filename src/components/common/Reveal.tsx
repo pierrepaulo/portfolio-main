@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 type RevealProps = {
   children: ReactNode;
   className?: string;
-  direction?: "left" | "right";
+  direction?: "left" | "right" | "up" | "down";
   delay?: number;
   distance?: number;
   duration?: number;
@@ -25,12 +25,29 @@ export function Reveal({
   once = true,
 }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
-  const offset = direction === "left" ? -distance : distance;
+
+  const getInitial = () => {
+    switch (direction) {
+      case "left":
+        return { x: -distance, y: 0 };
+      case "right":
+        return { x: distance, y: 0 };
+      case "up":
+        return { x: 0, y: distance }; // Starts below, moves up
+      case "down":
+        return { x: 0, y: -distance }; // Starts above, moves down
+      default:
+        return { x: 0, y: 0 };
+    }
+  };
+
+  const initial = getInitial();
+
   const variants: Variants = {
     hidden: prefersReducedMotion
-      ? { opacity: 1, x: 0 }
-      : { opacity: 0, x: offset },
-    visible: { opacity: 1, x: 0 },
+      ? { opacity: 1, x: 0, y: 0 }
+      : { opacity: 0, ...initial },
+    visible: { opacity: 1, x: 0, y: 0 },
   };
 
   return (

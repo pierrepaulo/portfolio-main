@@ -47,8 +47,8 @@ function IconButton({
         "inline-flex h-11 w-11 items-center justify-center rounded-full border text-base transition-[box-shadow,color,background-color,border-color,transform] duration-300 hover:shadow-[0_10px_24px_rgb(var(--brand-rgb)/0.35)] focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-brand",
         variant === "solid"
           ? "border-transparent bg-linear-to-r from-brand-start to-brand-end text-foreground"
-          : "border-border/70 text-muted-foreground hover:border-brand hover:bg-card/60 hover:text-foreground",
-        className
+          : "border-primary/40 text-muted-foreground hover:border-brand hover:bg-primary/5 hover:text-foreground hover:shadow-[0_0_15px_rgba(0,240,255,0.4)]",
+        className,
       )}
       {...props}
     >
@@ -111,10 +111,10 @@ export function Header() {
         "fixed top-0 z-50 w-full transition-all",
         isScrolled
           ? "border-b border-border/60 bg-background/80 shadow-sm backdrop-blur"
-          : "bg-transparent"
+          : "bg-transparent",
       )}
     >
-      <Container className="flex h-18 items-center justify-between gap-4">
+      <Container className="flex h-18 items-center justify-between gap-4 px-6 md:px-0">
         <Link
           href="#inicio"
           className="text-xl font-semibold text-foreground sm:text-2xl"
@@ -128,7 +128,7 @@ export function Header() {
         >
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-1 h-1 rounded-full bg-brand/80 shadow-[0_0_12px_rgb(var(--brand-rgb)/0.35)] transition-[transform,width,opacity] duration-300 ease-out"
+            className="pointer-events-none absolute -bottom-1 h-[2px] bg-linear-to-r from-primary to-blue-600 shadow-[0_0_12px_rgb(0,240,255,0.8)] transition-[transform,width,opacity] duration-300 ease-out"
             style={{
               width: `${indicator.width}px`,
               transform: `translateX(${indicator.left}px)`,
@@ -144,7 +144,7 @@ export function Header() {
               href={`#${link.id}`}
               className={cn(
                 "text-base font-medium text-muted-foreground/80 transition-[color,filter] duration-300 hover:text-foreground hover:drop-shadow-[0_4px_12px_rgb(var(--brand-rgb)/0.35)] sm:text-lg",
-                activeId === link.id && "text-brand"
+                activeId === link.id && "text-brand",
               )}
               aria-current={activeId === link.id ? "page" : undefined}
             >
@@ -178,13 +178,13 @@ export function Header() {
               </button>
             </SheetTrigger>
             <SheetContent>
-              <SheetHeader>
+              <SheetHeader className="px-6">
                 <SheetTitle>Pierre Paulo</SheetTitle>
                 <p className="text-base text-muted-foreground">
                   Navegue pelas seções do portfólio
                 </p>
               </SheetHeader>
-              <div className="mt-6 flex flex-col gap-3">
+              <div className="mt-6 flex flex-col gap-3 px-6">
                 {navLinks.map((link) => (
                   <SheetClose asChild key={link.id}>
                     <a
@@ -192,7 +192,7 @@ export function Header() {
                       className={cn(
                         "rounded-xl border border-border/70 px-5 py-3 text-base font-medium text-foreground transition-[box-shadow,color,background-color,border-color] duration-300 hover:border-brand hover:bg-card/60 hover:shadow-[0_10px_24px_rgb(var(--brand-rgb)/0.2)]",
                         activeId === link.id &&
-                          "border-brand/80 bg-brand/15 text-foreground"
+                          "border-brand/80 bg-brand/15 text-foreground",
                       )}
                     >
                       {link.label}
@@ -200,7 +200,7 @@ export function Header() {
                   </SheetClose>
                 ))}
               </div>
-              <div className="mt-6 flex items-center gap-3">
+              <div className="mt-6 flex items-center gap-3 px-6">
                 {headerSocials.map((social) => (
                   <IconButton
                     key={social.label}

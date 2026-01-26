@@ -1,3 +1,5 @@
+"use client";
+
 import { Container } from "../common/Container";
 import { SectionHeader } from "../common/SectionHeader";
 import { Reveal } from "../common/Reveal";
@@ -13,21 +15,26 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
+import { FiCode, FiExternalLink, FiGithub } from "react-icons/fi";
 
 const normalizeUrl = (url: string) =>
   url.startsWith("http") ? url : `https://${url}`;
 
 export function Projects() {
   return (
-    <section id="projetos" className="py-20">
+    <section id="projetos" className="py-24 relative overflow-hidden">
+      {/* Background circuit decoration */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,240,255,0.03)_0%,transparent_70%)] pointer-events-none" />
+
       <Container>
         <Reveal direction="left">
           <SectionHeader
             title="Projetos em destaque"
-            subtitle="Projetos reais, com foco em impacto, arquitetura e boas prǭticas."
+            subtitle="Projetos reais, com foco em impacto, arquitetura e boas praticas."
+            className="mb-16"
           />
         </Reveal>
-        <div className="grid gap-6">
+        <div className="grid gap-12">
           {projects.map((project, index) => {
             const Icon = project.icon;
             const images = project.images;
@@ -36,120 +43,137 @@ export function Projects() {
             const liveUrl = project.liveUrl
               ? normalizeUrl(project.liveUrl)
               : "";
-            const direction = index % 2 === 0 ? "left" : "right";
 
             return (
-              <Reveal key={project.id} direction={direction}>
-                <Card className="overflow-hidden py-0 lift-glow">
-                  <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-stretch">
-                    <div className="p-4 md:self-center">
-                      {hasImages ? (
-                        <Carousel
-                          className="min-h-65 overflow-hidden rounded-lg sm:min-h-70 lg:min-h-75"
-                          opts={{ align: "start", loop: hasMultipleImages }}
-                        >
-                          <CarouselContent className="ml-0">
-                            {images.map((image, imageIndex) => (
-                              <CarouselItem
-                                key={`${project.id}-image-${imageIndex}`}
-                                className="pl-0"
-                              >
-                                <div className="relative min-h-65 sm:min-h-70 lg:min-h-75">
-                                  <Image
-                                    src={image}
-                                    alt={`Preview do projeto ${project.title} - imagem ${imageIndex + 1}`}
-                                    fill
-                                    className="object-contain"
-                                    sizes="(min-width: 768px) 45vw, 100vw"
-                                  />
-                                </div>
-                              </CarouselItem>
-                            ))}
-                          </CarouselContent>
-                          {hasMultipleImages ? (
-                            <>
-                              <CarouselPrevious className="left-3" />
-                              <CarouselNext className="right-3" />
-                            </>
-                          ) : null}
-                        </Carousel>
-                      ) : (
-                        <div className="relative min-h-65 overflow-hidden rounded-lg sm:min-h-70 lg:min-h-75">
-                          <div className="flex h-full items-center justify-center gap-3 text-muted-foreground">
-                            <Icon className="text-2xl" aria-hidden="true" />
-                            <span className="text-sm">Sem imagem</span>
+              <Reveal key={project.id} direction="up" delay={index * 0.1}>
+                {/* Tech Card Container */}
+                <div className="group relative">
+                  {/* Holographic Border */}
+                  <div className="absolute -inset-0.5 bg-linear-to-r from-primary/30 to-blue-600/30 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-500" />
+
+                  <Card className="relative tech-card border-none bg-black/60 backdrop-blur-xl">
+                    <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start p-6 sm:p-8">
+                      {/* Image Module */}
+                      <div className="relative rounded-lg overflow-hidden border border-white/10 bg-black/50 aspect-video lg:aspect-auto lg:h-full">
+                        {/* Corner accents */}
+                        <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-primary/50 rounded-tl-lg z-10" />
+                        <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-primary/50 rounded-br-lg z-10" />
+
+                        {hasImages ? (
+                          <Carousel
+                            className="w-full h-full"
+                            opts={{ align: "start", loop: hasMultipleImages }}
+                          >
+                            <CarouselContent>
+                              {images.map((image, imageIndex) => (
+                                <CarouselItem
+                                  key={`${project.id}-image-${imageIndex}`}
+                                  className="pl-0"
+                                >
+                                  <div className="relative aspect-video w-full h-full">
+                                    <Image
+                                      src={image}
+                                      alt={`${project.title} preview`}
+                                      fill
+                                      className="object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                      sizes="(min-width: 1024px) 50vw, 100vw"
+                                    />
+                                    {/* Scanline overlay on image */}
+                                    <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-20 bg-size-[100%_2px,3px_100%] pointer-events-none opacity-20" />
+                                  </div>
+                                </CarouselItem>
+                              ))}
+                            </CarouselContent>
+                            {hasMultipleImages && (
+                              <div className="absolute bottom-4 right-4 flex gap-2 z-30">
+                                <CarouselPrevious className="static translate-y-0 rounded-none border-primary/50 bg-black/50 text-primary hover:bg-primary hover:text-black" />
+                                <CarouselNext className="static translate-y-0 rounded-none border-primary/50 bg-black/50 text-primary hover:bg-primary hover:text-black" />
+                              </div>
+                            )}
+                          </Carousel>
+                        ) : (
+                          <div className="flex h-full items-center justify-center text-muted-foreground bg-black/50">
+                            <Icon className="text-4xl opacity-20" />
                           </div>
-                        </div>
-                      )}
-                    </div>
+                        )}
+                      </div>
 
-                    <div className="flex flex-col">
-                      <CardContent className="flex flex-col gap-4 pt-6 pb-0">
-                        <div className="flex items-center gap-3">
-                          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-background/60 text-brand">
-                            <Icon className="text-lg" aria-hidden="true" />
-                          </span>
-                          <h3 className="text-xl font-semibold text-foreground sm:text-2xl">
-                            {project.title}
-                          </h3>
-                        </div>
+                      {/* Content Module */}
+                      <div className="flex flex-col h-full space-y-6">
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-3 text-primary">
+                            <FiCode className="text-xl" />
+                            <h3 className="text-2xl font-bold font-display tracking-wide uppercase text-white shadow-primary/20 drop-shadow-md">
+                              {project.title}
+                            </h3>
+                          </div>
 
-                        <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-                          {project.description}
-                        </p>
+                          <p className="text-muted-foreground leading-relaxed border-l-2 border-primary/20 pl-4 py-1">
+                            {project.description}
+                          </p>
+                        </div>
 
                         <div className="flex flex-wrap gap-2">
                           {project.techs.map((tech) => (
                             <Badge
                               key={`${project.id}-${tech}`}
-                              variant="secondary"
-                              className="bg-background/70 text-foreground/90 border-border/60"
+                              variant="outline"
+                              className="rounded-none border-primary/30 text-primary/80 bg-primary/5 hover:bg-primary/10 hover:border-primary transition-colors font-mono text-xs"
                             >
                               {tech}
                             </Badge>
                           ))}
                         </div>
-                      </CardContent>
 
-                      <CardFooter className="mt-auto flex flex-wrap gap-3 px-6 pb-6 pt-4">
-                        {liveUrl ? (
-                          <Button
-                            asChild
-                            className="lift-glow accent-fill rounded-full"
-                          >
-                            <a href={liveUrl} target="_blank" rel="noreferrer">
-                              Ver deploy
-                            </a>
-                          </Button>
-                        ) : (
-                          <Button
-                            disabled
-                            variant="secondary"
-                            className="rounded-full"
-                          >
-                            Ver deploy
-                          </Button>
-                        )}
-
-                        {project.repoUrl ? (
-                          <Button
-                            asChild
-                            variant="outline"
-                            className="lift-glow accent-outline rounded-full"
-                          >
-                            <a
-                              href={project.repoUrl}
-                              target="_blank"
-                              rel="noreferrer"
+                        <div className="pt-4 mt-auto flex flex-wrap gap-4">
+                          {liveUrl ? (
+                            <Button
+                              asChild
+                              size="sm"
+                              className="clip-chamfer-sm bg-primary text-black hover:bg-white hover:text-black font-bold tracking-wider"
                             >
-                              Ver repositorio
-                            </a>
-                          </Button>
-                        ) : null}
-                      </CardFooter>
+                              <a
+                                href={liveUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-2"
+                              >
+                                <FiExternalLink /> Ver Deploy
+                              </a>
+                            </Button>
+                          ) : (
+                            <Button
+                              disabled
+                              size="sm"
+                              variant="secondary"
+                              className="clip-chamfer-sm opacity-50 cursor-not-allowed"
+                            >
+                              OFFLINE
+                            </Button>
+                          )}
+
+                          {project.repoUrl && (
+                            <Button
+                              asChild
+                              size="sm"
+                              variant="outline"
+                              className="clip-chamfer-sm border-primary/50 text-primary hover:bg-primary/20"
+                            >
+                              <a
+                                href={project.repoUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-2"
+                              >
+                                <FiGithub /> Ver Codigo
+                              </a>
+                            </Button>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                </div>
               </Reveal>
             );
           })}
