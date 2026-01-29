@@ -1,10 +1,17 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Container } from "@/components/common/Container";
 import { SplitText } from "@/components/common/SplitText";
-import FloatingLines from "@/components/FloatingLines";
 import { Button } from "@/components/ui/button";
 import { FiArrowDown, FiDownload, FiTerminal, FiCpu } from "react-icons/fi";
+
+const FloatingLines = dynamic(() => import("@/components/FloatingLines"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 bg-background animate-pulse" />
+  ),
+});
 
 const sciFiGradient = ["#00f0ff", "#0099ff", "#0055ff"]; // Cyan to Deep Blue
 const heroDescription =

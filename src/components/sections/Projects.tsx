@@ -75,6 +75,7 @@ export function Projects() {
                                       src={image}
                                       alt={`${project.title} preview`}
                                       fill
+                                      loading="lazy"
                                       className="object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
                                       sizes="(min-width: 1024px) 50vw, 100vw"
                                     />
