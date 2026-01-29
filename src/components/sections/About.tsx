@@ -11,7 +11,7 @@ export function About() {
         <Reveal direction="left">
           <SectionHeader
             title="Sobre mim"
-            subtitle="Desenvolvedor Full Stack com foco em produto, qualidade e consistǦncia."
+            subtitle="Desenvolvedor Full Stack com foco em produto, qualidade e consistência."
           />
         </Reveal>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:items-center">

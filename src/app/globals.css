@@ -95,6 +95,17 @@ body {
   background-attachment: fixed;
 }
 
+/* Mobile performance: disable fixed background */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-size:
+      60px 60px,
+      60px 60px,
+      100% 100%;
+  }
+}
+
 h1,
 h2,
 h3,

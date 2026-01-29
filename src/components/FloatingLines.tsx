@@ -346,21 +346,21 @@ export default function FloatingLines({
         value: new Vector3(
           topWavePosition?.x ?? 10.0,
           topWavePosition?.y ?? 0.5,
-          topWavePosition?.rotate ?? -0.4
+          topWavePosition?.rotate ?? -0.4,
         ),
       },
       middleWavePosition: {
         value: new Vector3(
           middleWavePosition?.x ?? 5.0,
           middleWavePosition?.y ?? 0.0,
-          middleWavePosition?.rotate ?? 0.2
+          middleWavePosition?.rotate ?? 0.2,
         ),
       },
       bottomWavePosition: {
         value: new Vector3(
           bottomWavePosition?.x ?? 2.0,
           bottomWavePosition?.y ?? -0.7,
-          bottomWavePosition?.rotate ?? 0.4
+          bottomWavePosition?.rotate ?? 0.4,
         ),
       },
 
@@ -377,7 +377,7 @@ export default function FloatingLines({
       lineGradient: {
         value: Array.from(
           { length: MAX_GRADIENT_STOPS },
-          () => new Vector3(1, 1, 1)
+          () => new Vector3(1, 1, 1),
         ),
       },
       lineGradientCount: { value: 0 },
@@ -406,7 +406,9 @@ export default function FloatingLines({
     const clock = new Clock();
 
     const setSize = () => {
-      const el = containerRef.current!;
+      const el = containerRef.current;
+      if (!el) return; // Guard against null ref during unmount
+
       const width = el.clientWidth || 1;
       const height = el.clientHeight || 1;
 
@@ -454,7 +456,7 @@ export default function FloatingLines({
         const offsetY = -(y - centerY) / rect.height;
         targetParallaxRef.current.set(
           offsetX * parallaxStrength,
-          offsetY * parallaxStrength
+          offsetY * parallaxStrength,
         );
       }
     };
@@ -489,7 +491,7 @@ export default function FloatingLines({
       if (parallax) {
         currentParallaxRef.current.lerp(
           targetParallaxRef.current,
-          mouseDamping
+          mouseDamping,
         );
         uniforms.parallaxOffset.value.copy(currentParallaxRef.current);
       }

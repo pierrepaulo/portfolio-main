@@ -83,7 +83,7 @@ export const projects: Project[] = [
       "Next",
       "Node.js",
       "PostgreSQL",
-      "Webhhooks",
+      "Webhooks",
       "Zod",
       "TanStack Query",
     ],

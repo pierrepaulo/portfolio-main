@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import { Container } from "@/components/common/Container";
 import { SplitText } from "@/components/common/SplitText";
 import { Button } from "@/components/ui/button";
@@ -17,23 +18,44 @@ const sciFiGradient = ["#00f0ff", "#0099ff", "#0055ff"]; // Cyan to Deep Blue
 const heroDescription =
   "Aplicações escaláveis com TypeScript/JavaScript (Node.js e React), com foco em arquitetura limpa, código limpo e decisões técnicas alinhadas ao negócio.";
 
+// Mobile detection hook
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 export function Hero() {
+  const isMobile = useIsMobile();
+
   return (
     <section
       id="inicio"
       className="relative flex min-h-screen items-center overflow-hidden scroll-mt-24 py-24 bg-background"
     >
-      {/* Background with FloatingLines - Immersive Layer */}
+      {/* Background - Static gradient on mobile, FloatingLines on desktop */}
       <div className="absolute inset-0 z-0">
-        <FloatingLines
-          linesGradient={sciFiGradient}
-          animationSpeed={0.3} // Slower for background
-          interactive
-          parallax={true}
-          mixBlendMode="screen"
-          lineDistance={15} // Spread out more
-          lineCount={5} // Fewer lines for less noise
-        />
+        {isMobile ? (
+          // Lightweight static gradient for mobile
+          <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-transparent to-blue-600/10" />
+        ) : (
+          <FloatingLines
+            linesGradient={sciFiGradient}
+            animationSpeed={0.3}
+            interactive
+            parallax={true}
+            mixBlendMode="screen"
+            lineDistance={15}
+            lineCount={5}
+          />
+        )}
         {/* Subtle noise/grid overlay on top of lines */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(2,4,10,0.8),rgba(2,4,10,0.6))] pointer-events-none" />
       </div>
@@ -100,14 +122,6 @@ export function Hero() {
                   Ver Projetos
                 </a>
               </Button>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN: Just HUD Elements or Empty (Asymmetry) */}
-          <div className="hidden lg:flex lg:col-span-4 justify-center items-center opacity-30">
-            {/* Simple decorative HUD Circle instead of full 3D canvas */}
-            <div className="w-64 h-64 border border-primary/20 rounded-full flex items-center justify-center animate-spin-slow">
-              <div className="w-48 h-48 border border-dashed border-primary/20 rounded-full animate-spin-reverse" />
             </div>
           </div>
         </div>
