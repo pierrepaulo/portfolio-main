@@ -16,7 +16,7 @@ export const socials: SocialLink[] = [
     href: "mailto:pierrepaulotf@gmail.com",
     icon: Mail,
     detail: "pierrepaulotf@gmail.com",
-    showInHeader: true,
+    showInHeader: false,
     showInContact: true,
   },
   {
@@ -40,11 +40,10 @@ export const socials: SocialLink[] = [
     href: "https://wa.me/5533991993858",
     icon: MessageCircle,
     detail: "+55 (33) 99199-3858",
-    showInHeader: false,
+    showInHeader: true,
     showInContact: true,
   },
 ];
 
 export const headerSocials = socials.filter((social) => social.showInHeader);
 export const contactChannels = socials.filter((social) => social.showInContact);
-
