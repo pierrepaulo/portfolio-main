@@ -77,6 +77,18 @@ html {
   scroll-padding-top: 6rem;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
 body {
   min-height: 100%;
   background-color: var(--background);
@@ -95,6 +107,10 @@ body {
   background-attachment: fixed;
 }
 
+body[data-scroll-locked] .app-fixed-header {
+  right: var(--removed-body-scroll-bar-size, 0px);
+}
+
 /* Mobile performance: disable fixed background */
 @media (max-width: 768px) {
   body {
@@ -104,6 +120,25 @@ body {
       60px 60px,
       100% 100%;
   }
+}
+
+/* Adaptive performance tiers */
+html.perf-tier-medium body,
+html.perf-tier-low body {
+  background-attachment: scroll;
+}
+
+html.perf-tier-low .scanlines {
+  opacity: 0.08;
+}
+
+html.perf-tier-low .tech-card {
+  backdrop-filter: none;
+}
+
+html.perf-tier-low .lift-glow:hover {
+  transform: none;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
 }
 
 h1,
@@ -139,6 +174,17 @@ h6 {
 }
 
 @layer utilities {
+  @keyframes split-text-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, var(--split-text-y-offset, 12px), 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
   /* Holographic/Glass Cards */
   .tech-card {
     @apply bg-card/60 backdrop-blur-md border border-white/10 relative overflow-hidden;

@@ -228,6 +228,10 @@ type FloatingLinesProps = {
   parallax?: boolean;
   parallaxStrength?: number;
   mixBlendMode?: CSSProperties["mixBlendMode"];
+  dprCap?: number;
+  maxFps?: number;
+  isActive?: boolean;
+  reducedQuality?: boolean;
 };
 
 function hexToVec3(hex: string): Vector3 {
@@ -270,6 +274,10 @@ export default function FloatingLines({
   parallax = true,
   parallaxStrength = 0.2,
   mixBlendMode = "screen",
+  dprCap = 2,
+  maxFps = 60,
+  isActive = true,
+  reducedQuality = false,
 }: FloatingLinesProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const targetMouseRef = useRef<Vector2>(new Vector2(-1000, -1000));
@@ -278,6 +286,16 @@ export default function FloatingLines({
   const currentInfluenceRef = useRef<number>(0);
   const targetParallaxRef = useRef<Vector2>(new Vector2(0, 0));
   const currentParallaxRef = useRef<Vector2>(new Vector2(0, 0));
+  const activeRef = useRef(isActive);
+  const fpsRef = useRef(maxFps);
+
+  useEffect(() => {
+    activeRef.current = isActive;
+  }, [isActive]);
+
+  useEffect(() => {
+    fpsRef.current = maxFps;
+  }, [maxFps]);
 
   const getLineCount = (waveType: "top" | "middle" | "bottom"): number => {
     if (typeof lineCount === "number") return lineCount;
@@ -293,12 +311,20 @@ export default function FloatingLines({
     return lineDistance[index] ?? 0.1;
   };
 
-  const topLineCount = enabledWaves.includes("top") ? getLineCount("top") : 0;
+  const topLineCount = enabledWaves.includes("top")
+    ? Math.max(1, reducedQuality ? Math.floor(getLineCount("top") * 0.7) : getLineCount("top"))
+    : 0;
   const middleLineCount = enabledWaves.includes("middle")
-    ? getLineCount("middle")
+    ? Math.max(
+        1,
+        reducedQuality ? Math.floor(getLineCount("middle") * 0.7) : getLineCount("middle"),
+      )
     : 0;
   const bottomLineCount = enabledWaves.includes("bottom")
-    ? getLineCount("bottom")
+    ? Math.max(
+        1,
+        reducedQuality ? Math.floor(getLineCount("bottom") * 0.7) : getLineCount("bottom"),
+      )
     : 0;
 
   const topLineDistance = enabledWaves.includes("top")
@@ -312,7 +338,8 @@ export default function FloatingLines({
     : 0.01;
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     const scene = new Scene();
 
@@ -320,10 +347,10 @@ export default function FloatingLines({
     camera.position.z = 1;
 
     const renderer = new WebGLRenderer({ antialias: true, alpha: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap));
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
-    containerRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     const uniforms = {
       iTime: { value: 0 },
@@ -406,11 +433,8 @@ export default function FloatingLines({
     const clock = new Clock();
 
     const setSize = () => {
-      const el = containerRef.current;
-      if (!el) return; // Guard against null ref during unmount
-
-      const width = el.clientWidth || 1;
-      const height = el.clientHeight || 1;
+      const width = container.clientWidth || 1;
+      const height = container.clientHeight || 1;
 
       renderer.setSize(width, height, false);
 
@@ -426,8 +450,8 @@ export default function FloatingLines({
         ? new ResizeObserver(setSize)
         : null;
 
-    if (ro && containerRef.current) {
-      ro.observe(containerRef.current);
+    if (ro) {
+      ro.observe(container);
     }
 
     const handlePointerMove = (event: PointerEvent) => {
@@ -475,7 +499,22 @@ export default function FloatingLines({
     }
 
     let raf = 0;
-    const renderLoop = () => {
+    let lastRenderTime = 0;
+    const renderLoop = (timestamp: number) => {
+      const fpsLimit = Math.max(1, fpsRef.current);
+      const frameBudget = 1000 / fpsLimit;
+
+      if (!activeRef.current) {
+        raf = requestAnimationFrame(renderLoop);
+        return;
+      }
+
+      if (timestamp - lastRenderTime < frameBudget) {
+        raf = requestAnimationFrame(renderLoop);
+        return;
+      }
+
+      lastRenderTime = timestamp;
       uniforms.iTime.value = clock.getElapsedTime();
 
       if (interactive) {
@@ -499,11 +538,11 @@ export default function FloatingLines({
       renderer.render(scene, camera);
       raf = requestAnimationFrame(renderLoop);
     };
-    renderLoop();
+    raf = requestAnimationFrame(renderLoop);
 
     return () => {
       cancelAnimationFrame(raf);
-      if (ro && containerRef.current) {
+      if (ro) {
         ro.disconnect();
       }
 
@@ -535,6 +574,14 @@ export default function FloatingLines({
     mouseDamping,
     parallax,
     parallaxStrength,
+    topLineCount,
+    middleLineCount,
+    bottomLineCount,
+    topLineDistance,
+    middleLineDistance,
+    bottomLineDistance,
+    dprCap,
+    reducedQuality,
   ]);
 
   return (

@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "perf:mobile": "npx lighthouse http://localhost:3000 --only-categories=performance --chrome-flags=\"--headless --no-sandbox --disable-gpu\"",
+    "perf:desktop": "npx lighthouse http://localhost:3000 --preset=desktop --only-categories=performance --chrome-flags=\"--headless --no-sandbox --disable-gpu\"",
+    "perf:desktop:slowcpu": "npx lighthouse http://localhost:3000 --preset=desktop --only-categories=performance --throttling.cpuSlowdownMultiplier=8 --chrome-flags=\"--headless --no-sandbox --disable-gpu\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -17,12 +20,10 @@
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.562.0",
-    "motion": "^12.24.12",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.70.0",
-    "react-icons": "^5.5.0",
     "resend": "^6.7.0",
     "tailwind-merge": "^3.4.0",
     "three": "^0.167.1",

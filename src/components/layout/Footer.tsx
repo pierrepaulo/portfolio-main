@@ -1,7 +1,7 @@
 import { Container } from "@/components/common/Container";
 import { Reveal } from "@/components/common/Reveal";
 import { contactChannels } from "@/data/social";
-import { FaMapPin } from "react-icons/fa";
+import { MapPin } from "lucide-react";
 
 const navLinks = [
   { href: "#inicio", label: "Inicio" },
@@ -30,7 +30,7 @@ export function Footer() {
                 Portfolio 2026
               </p>
               <p className="flex items-center gap-1 text-sm leading-relaxed text-muted-foreground">
-                <FaMapPin className="" aria-hidden="true" />
+                <MapPin size={16} aria-hidden="true" />
                 Belo Horizonte - MG
               </p>
               <div className="flex items-center gap-1">

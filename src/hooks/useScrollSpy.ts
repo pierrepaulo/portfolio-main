@@ -18,6 +18,31 @@ export function useScrollSpy(sectionIds: string[], options?: ScrollSpyOptions) {
 
     if (!sections.length) return;
 
+    if (typeof window.IntersectionObserver !== "function") {
+      const updateActiveSection = () => {
+        const anchorPoint = window.innerHeight * 0.45;
+        let currentId = sections[0].id;
+
+        sections.forEach((section) => {
+          const { top } = section.getBoundingClientRect();
+          if (top - anchorPoint <= 0) {
+            currentId = section.id;
+          }
+        });
+
+        setActiveId(currentId);
+      };
+
+      updateActiveSection();
+      window.addEventListener("scroll", updateActiveSection, { passive: true });
+      window.addEventListener("resize", updateActiveSection, { passive: true });
+
+      return () => {
+        window.removeEventListener("scroll", updateActiveSection);
+        window.removeEventListener("resize", updateActiveSection);
+      };
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

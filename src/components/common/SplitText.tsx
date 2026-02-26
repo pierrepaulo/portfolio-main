@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import type { CSSProperties } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { subscribeToMediaQueryChange } from "@/lib/mediaQuery";
 import { cn } from "@/lib/utils";
 
 type SplitTextProps = {
@@ -16,6 +17,10 @@ type SplitTextProps = {
   preserveWhitespace?: boolean;
 };
 
+type WordToken =
+  | { type: "space"; value: string }
+  | { type: "word"; chars: string[]; startIndex: number };
+
 export function SplitText({
   text,
   className,
@@ -26,9 +31,10 @@ export function SplitText({
   splitBy = "char",
   preserveWhitespace = true,
 }: SplitTextProps) {
-  const prefersReducedMotion = useReducedMotion();
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const characters = useMemo(() => Array.from(text), [text]);
-  const wordTokens = useMemo(() => {
+
+  const wordTokens = useMemo<WordToken[]>(() => {
     if (splitBy !== "word") return [];
 
     const parts = text.split(/(\s+)/);
@@ -39,29 +45,47 @@ export function SplitText({
       .map((part) => {
         if (/^\s+$/.test(part)) {
           charOffset += part.length;
-          return { type: "space" as const, value: part };
+          return { type: "space", value: part };
         }
 
         const chars = Array.from(part);
         const startIndex = charOffset;
         charOffset += chars.length;
 
-        return {
-          type: "word" as const,
-          chars,
-          startIndex,
-        };
+        return { type: "word", chars, startIndex };
       });
   }, [splitBy, text]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    syncPreference();
+    return subscribeToMediaQueryChange(mediaQuery, syncPreference);
+  }, []);
+
   const wrapperClassName = cn(
     preserveWhitespace ? "whitespace-pre" : "whitespace-normal",
-    className
+    className,
   );
 
   if (prefersReducedMotion) {
     return <span className={wrapperClassName}>{text}</span>;
   }
+
+  const getAnimatedStyle = (index: number): CSSProperties => {
+    const style: CSSProperties & Record<"--split-text-y-offset", string> = {
+      display: "inline-block",
+      "--split-text-y-offset": `${yOffset}px`,
+      animationName: "split-text-in",
+      animationDuration: `${duration}s`,
+      animationDelay: `${delay + index * stagger}s`,
+      animationTimingFunction: "ease-out",
+      animationFillMode: "both",
+    };
+
+    return style;
+  };
 
   if (splitBy === "word") {
     return (
@@ -72,43 +96,22 @@ export function SplitText({
             if (token.type === "space") {
               return (
                 <span key={`space-${tokenIndex}`}>
-                  {preserveWhitespace
-                    ? token.value.replace(/ /g, "\u00A0")
-                    : token.value}
+                  {preserveWhitespace ? token.value.replace(/ /g, "\u00A0") : token.value}
                 </span>
               );
             }
 
-            const wordDelay = delay + token.startIndex * stagger;
-
             return (
-              <motion.span
-                key={`word-${tokenIndex}`}
-                className="inline-block"
-                initial="hidden"
-                animate="visible"
-                transition={{
-                  staggerChildren: stagger,
-                  delayChildren: wordDelay,
-                }}
-              >
+              <span key={`word-${tokenIndex}`} className="inline-block">
                 {token.chars.map((char, charIndex) => (
-                  <motion.span
+                  <span
                     key={`${char}-${charIndex}`}
-                    className="inline-block"
-                    variants={{
-                      hidden: { opacity: 0, y: yOffset },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        transition: { duration, ease: "easeOut" },
-                      },
-                    }}
+                    style={getAnimatedStyle(token.startIndex + charIndex)}
                   >
                     {char}
-                  </motion.span>
+                  </span>
                 ))}
-              </motion.span>
+              </span>
             );
           })}
         </span>
@@ -119,37 +122,13 @@ export function SplitText({
   return (
     <span className={wrapperClassName}>
       <span className="sr-only">{text}</span>
-      <motion.span
-        aria-hidden="true"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          visible: {
-            transition: {
-              staggerChildren: stagger,
-              delayChildren: delay,
-            },
-          },
-          hidden: {},
-        }}
-      >
+      <span aria-hidden="true">
         {characters.map((char, index) => (
-          <motion.span
-            key={`${char}-${index}`}
-            className="inline-block"
-            variants={{
-              hidden: { opacity: 0, y: yOffset },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration, ease: "easeOut" },
-              },
-            }}
-          >
+          <span key={`${char}-${index}`} style={getAnimatedStyle(index)}>
             {char === " " && preserveWhitespace ? "\u00A0" : char}
-          </motion.span>
+          </span>
         ))}
-      </motion.span>
+      </span>
     </span>
   );
 }

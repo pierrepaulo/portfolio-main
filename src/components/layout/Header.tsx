@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { Menu, type LucideIcon } from "lucide-react";
 import type { AnchorHTMLAttributes } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { IconType } from "react-icons";
-import { FiMenu } from "react-icons/fi";
 
 import { Container } from "@/components/common/Container";
 import {
@@ -29,7 +28,7 @@ const navLinks = [
 
 type IconButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   label: string;
-  icon: IconType;
+  icon: LucideIcon;
   variant?: "ghost" | "solid";
 };
 
@@ -108,7 +107,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full transition-all",
+        "app-fixed-header fixed inset-x-0 top-0 z-50 transition-all",
         isScrolled
           ? "border-b border-border/60 bg-background/80 shadow-sm backdrop-blur"
           : "bg-transparent",
@@ -128,7 +127,7 @@ export function Header() {
         >
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-1 h-[2px] bg-linear-to-r from-primary to-blue-600 shadow-[0_0_12px_rgb(0,240,255,0.8)] transition-[transform,width,opacity] duration-300 ease-out"
+            className="pointer-events-none absolute -bottom-1 h-0.5 bg-linear-to-r from-primary to-blue-600 shadow-[0_0_12px_rgb(0,240,255,0.8)] transition-[transform,width,opacity] duration-300 ease-out"
             style={{
               width: `${indicator.width}px`,
               transform: `translateX(${indicator.left}px)`,
@@ -174,7 +173,7 @@ export function Header() {
                 aria-label="Abrir menu"
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 text-foreground transition-[box-shadow,color,background-color,border-color,transform] duration-300 hover:bg-card/60 hover:shadow-[0_10px_24px_rgb(var(--brand-rgb)/0.35)] focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
-                <FiMenu className="text-2xl" aria-hidden="true" />
+                <Menu className="text-2xl" aria-hidden="true" />
               </button>
             </SheetTrigger>
             <SheetContent>

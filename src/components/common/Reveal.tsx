@@ -1,8 +1,9 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { motion, type Variants, useReducedMotion } from "motion/react";
+import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { subscribeToMediaQueryChange } from "@/lib/mediaQuery";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {
@@ -15,6 +16,30 @@ type RevealProps = {
   once?: boolean;
 };
 
+function resolveInitialTransform(direction: RevealProps["direction"], distance: number) {
+  switch (direction) {
+    case "left":
+      return `translate3d(-${distance}px, 0, 0)`;
+    case "right":
+      return `translate3d(${distance}px, 0, 0)`;
+    case "up":
+      return `translate3d(0, ${distance}px, 0)`;
+    case "down":
+      return `translate3d(0, -${distance}px, 0)`;
+    default:
+      return "translate3d(0, 0, 0)";
+  }
+}
+
+function isElementInViewport(element: HTMLElement, threshold = 0.2) {
+  const rect = element.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const visibleTop = rect.top < viewportHeight * (1 - threshold);
+  const visibleBottom = rect.bottom > viewportHeight * threshold;
+
+  return visibleTop && visibleBottom;
+}
+
 export function Reveal({
   children,
   className,
@@ -24,46 +49,69 @@ export function Reveal({
   duration = 0.6,
   once = true,
 }: RevealProps) {
-  const prefersReducedMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  const getInitial = () => {
-    switch (direction) {
-      case "left":
-        return { x: -distance, y: 0 };
-      case "right":
-        return { x: distance, y: 0 };
-      case "up":
-        return { x: 0, y: distance }; // Starts below, moves up
-      case "down":
-        return { x: 0, y: -distance }; // Starts above, moves down
-      default:
-        return { x: 0, y: 0 };
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    syncPreference();
+    return subscribeToMediaQueryChange(mediaQuery, syncPreference);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    if (typeof window.IntersectionObserver !== "function") {
+      return;
     }
-  };
 
-  const initial = getInitial();
+    const element = ref.current;
+    if (!element) return;
 
-  const variants: Variants = {
-    hidden: prefersReducedMotion
-      ? { opacity: 1, x: 0, y: 0 }
-      : { opacity: 0, ...initial },
-    visible: { opacity: 1, x: 0, y: 0 },
-  };
+    if (once && isElementInViewport(element)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (!entry) return;
+
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (once) observer.disconnect();
+          return;
+        }
+
+        setIsVisible(false);
+      },
+      {
+        threshold: 0.2,
+      },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [once, prefersReducedMotion]);
+
+  const style: CSSProperties = prefersReducedMotion
+    ? {}
+    : {
+        opacity: isVisible ? 1 : 0,
+        transform:
+          isVisible
+            ? "translate3d(0, 0, 0)"
+            : resolveInitialTransform(direction, distance),
+        transitionDuration: `${duration}s`,
+        transitionDelay: `${delay}s`,
+        transitionTimingFunction: "ease-out",
+        transitionProperty: "opacity, transform",
+      };
 
   return (
-    <motion.div
-      className={cn("will-change-transform", className)}
-      variants={variants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount: 0.2 }}
-      transition={
-        prefersReducedMotion
-          ? { duration: 0 }
-          : { duration, delay, ease: "easeOut" }
-      }
-    >
+    <div ref={ref} className={cn("will-change-transform", className)} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

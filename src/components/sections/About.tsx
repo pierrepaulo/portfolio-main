@@ -42,6 +42,7 @@ export function About() {
                   alt="Foto de Pierre Paulo"
                   width={160}
                   height={160}
+                  quality={70}
                   className="rounded-full border border-border/60 object-cover"
                 />
                 <div>

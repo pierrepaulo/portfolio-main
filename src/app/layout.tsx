@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
 import { Inter, Orbitron, Rajdhani } from "next/font/google";
+import { PerformanceClassProvider } from "@/components/providers/PerformanceClassProvider";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   variable: "--font-inter",
 });
 
 const orbitron = Orbitron({
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   variable: "--font-orbitron",
 });
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
+  weight: ["400", "600"],
+  display: "optional",
   variable: "--font-rajdhani",
 });
 
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body
         className={`min-h-full antialiased bg-background text-foreground font-sans`}
       >
+        <PerformanceClassProvider />
         <div className="scanlines" aria-hidden="true" />
         {children}
       </body>
