@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { SectionHeader } from "../common/SectionHeader";
@@ -9,6 +8,7 @@ import { Container } from "../common/Container";
 import { getProjects } from "@/lib/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Carousel, type CarouselSlide } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 
 type ProjectMediaProps = {
@@ -19,6 +19,11 @@ type ProjectMediaProps = {
 
 function ProjectMedia({ title, images, priorityFirstImage }: ProjectMediaProps) {
   const hasImages = images.length > 0;
+  const slides: CarouselSlide[] = images.map((image, index) => ({
+    src: image,
+    alt: `${title} frame ${index + 1}`,
+    priority: priorityFirstImage && index === 0,
+  }));
 
   if (!hasImages) {
     return null;
@@ -26,17 +31,13 @@ function ProjectMedia({ title, images, priorityFirstImage }: ProjectMediaProps) 
 
   return (
     <div className="project-media-inner relative h-full w-full">
-      <Image
-        src={images[0]}
-        alt={`${title} preview`}
-        fill
-        priority={priorityFirstImage}
-        loading={priorityFirstImage ? undefined : "lazy"}
-        className="object-contain object-center opacity-85 group-hover:opacity-100 transition-opacity duration-500"
-        sizes="(min-width: 1280px) 52vw, (min-width: 768px) 48vw, 100vw"
-        quality={65}
+      <Carousel
+        slides={slides}
+        className="h-full w-full"
+        imageClassName="opacity-85 group-hover:opacity-100 transition-opacity duration-500"
+        showIndicators={false}
+        showSlideOverlay={false}
       />
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-20 bg-size-[100%_2px,3px_100%] pointer-events-none opacity-20" />
     </div>
   );
 }

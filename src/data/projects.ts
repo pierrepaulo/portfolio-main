@@ -27,7 +27,7 @@ export const projects: Project[] = [
   {
     id: "restaurant-app",
     slug: "restaurant-app",
-    title: "RestaurantApp - Pedidos via Garcom + Painel Administrativo",
+    title: "RestaurantApp",
     icon: UtensilsCrossed,
     teaser:
       "Operacao de restaurante em tempo real, conectando fluxo de pedidos do garcom ao painel administrativo.",
@@ -75,7 +75,7 @@ export const projects: Project[] = [
   {
     id: "futstore",
     slug: "futstore",
-    title: "Futstore - E-commerce de camisetas de futebol",
+    title: "Futstore",
     icon: Store,
     teaser:
       "E-commerce full stack com foco em navegacao rapida, checkout confiavel e automacao do ciclo de pedido.",
@@ -124,7 +124,7 @@ export const projects: Project[] = [
   {
     id: "clinica-pro",
     slug: "clinica-pro",
-    title: "ClinicaPRO - SaaS de agendamentos",
+    title: "ClinicaPRO",
     icon: Building2,
     teaser:
       "SaaS de agendamento com planos, periodo de teste e experiencia de marcacao pensada para clinicas e pacientes.",
@@ -172,7 +172,7 @@ export const projects: Project[] = [
   {
     id: "easy-diet",
     slug: "easy-diet",
-    title: "EasyDiet - Gerador de dietas com IA",
+    title: "EasyDiet",
     icon: Dumbbell,
     teaser:
       "Plataforma que transforma dados de perfil em plano alimentar personalizado usando IA como motor de recomendacao.",
