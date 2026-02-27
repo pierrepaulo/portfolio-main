@@ -38,6 +38,17 @@
   --brand-rgb: 0 240 255;
   --brand-start-rgb: 0 240 255;
   --brand-end-rgb: 0 100 255;
+
+  /* Surface system: page and subtle glass cards */
+  --surface-page: #02040a;
+  --surface-card-rgb: 14 27 44;
+  --surface-card-alpha: 0.72;
+  --surface-card-alpha-strong: 0.82;
+  --surface-card-border: rgba(255, 255, 255, 0.12);
+  --surface-card-border-accent: rgba(0, 240, 255, 0.22);
+  --surface-card-highlight: rgba(255, 255, 255, 0.06);
+  --surface-card-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+  --surface-card-blur: 7px;
 }
 
 @theme inline {
@@ -91,7 +102,7 @@ body {
 
 body {
   min-height: 100%;
-  background-color: var(--background);
+  background-color: var(--surface-page);
   color: var(--foreground);
   font-family: var(--font-sans);
 
@@ -132,8 +143,18 @@ html.perf-tier-low .scanlines {
   opacity: 0.08;
 }
 
-html.perf-tier-low .tech-card {
+html.perf-tier-low .tech-card,
+html.perf-tier-low .glass-card-subtle {
   backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html.perf-tier-low .glass-card-subtle {
+  background: linear-gradient(
+    160deg,
+    rgb(var(--surface-card-rgb) / 0.92),
+    rgb(var(--surface-card-rgb) / 0.9)
+  );
 }
 
 html.perf-tier-low .lift-glow:hover {
@@ -209,6 +230,50 @@ h6 {
 
   .tech-card:hover {
     @apply border-primary/50 shadow-[0_0_20px_rgba(0,240,255,0.15)];
+  }
+
+  .glass-card-subtle {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid var(--surface-card-border);
+    background: linear-gradient(
+      160deg,
+      rgb(var(--surface-card-rgb) / var(--surface-card-alpha-strong)),
+      rgb(var(--surface-card-rgb) / var(--surface-card-alpha))
+    );
+    box-shadow: var(--surface-card-shadow);
+    backdrop-filter: blur(var(--surface-card-blur));
+    -webkit-backdrop-filter: blur(var(--surface-card-blur));
+  }
+
+  .glass-card-subtle::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      var(--surface-card-highlight),
+      transparent 35%
+    );
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .glass-card-subtle > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .glass-card-subtle--interactive {
+    transition:
+      border-color 260ms ease,
+      box-shadow 260ms ease,
+      transform 260ms ease;
+  }
+
+  .glass-card-subtle--interactive:hover {
+    border-color: var(--surface-card-border-accent);
   }
 
   /* Chamfered Corners (Sci-Fi Buttons) */
@@ -323,17 +388,16 @@ h6 {
   .projects-timeline {
     --project-card-h-lg: 24.5rem;
     --project-card-h-xl: 26rem;
-    --project-card-surface: linear-gradient(155deg, rgba(6, 14, 25, 0.92), rgba(2, 5, 12, 0.9));
+    --project-card-surface: linear-gradient(
+      160deg,
+      rgb(var(--surface-card-rgb) / var(--surface-card-alpha-strong)),
+      rgb(var(--surface-card-rgb) / var(--surface-card-alpha))
+    );
   }
 
   .project-panel {
     position: relative;
     z-index: 20;
-    border: 1px solid rgba(0, 240, 255, 0.2);
-    background: var(--project-card-surface);
-    box-shadow:
-      0 18px 40px rgba(0, 0, 0, 0.35),
-      0 0 0 1px rgba(255, 255, 255, 0.03) inset;
     clip-path: polygon(
       0 0,
       calc(100% - 18px) 0,
@@ -350,7 +414,6 @@ h6 {
   }
 
   .project-panel:hover {
-    border-color: rgba(0, 240, 255, 0.55);
     box-shadow:
       0 24px 48px rgba(0, 0, 0, 0.42),
       0 0 26px rgba(0, 240, 255, 0.24);
@@ -456,7 +519,11 @@ h6 {
 
   .case-layout {
     position: relative;
-    --case-dossier-surface: linear-gradient(170deg, rgba(8, 16, 30, 0.88), rgba(2, 5, 14, 0.9));
+    --case-dossier-surface: linear-gradient(
+      160deg,
+      rgb(var(--surface-card-rgb) / var(--surface-card-alpha-strong)),
+      rgb(var(--surface-card-rgb) / var(--surface-card-alpha))
+    );
   }
 
   .case-layout::before {
@@ -484,7 +551,6 @@ h6 {
     position: relative;
     z-index: 20;
     overflow: hidden;
-    border: 1px solid rgba(0, 240, 255, 0.22);
     clip-path: polygon(
       0 0,
       calc(100% - 20px) 0,
@@ -493,7 +559,6 @@ h6 {
       20px 100%,
       0 calc(100% - 20px)
     );
-    background: var(--case-dossier-surface);
     aspect-ratio: 16 / 10;
   }
 
@@ -503,8 +568,6 @@ h6 {
 
   .case-dossier {
     position: relative;
-    border: 1px solid rgba(0, 240, 255, 0.2);
-    background: var(--case-dossier-surface);
     clip-path: polygon(
       0 0,
       calc(100% - 20px) 0,
@@ -541,8 +604,6 @@ h6 {
   }
 
   .case-panel {
-    border: 1px solid rgba(0, 240, 255, 0.2);
-    background: linear-gradient(160deg, rgba(6, 13, 24, 0.85), rgba(3, 7, 16, 0.92));
     clip-path: polygon(
       0 0,
       calc(100% - 14px) 0,
