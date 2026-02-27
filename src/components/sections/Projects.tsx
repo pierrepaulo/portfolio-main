@@ -34,7 +34,6 @@ function ProjectMedia({ title, images, priorityFirstImage }: ProjectMediaProps) 
       <Carousel
         slides={slides}
         className="h-full w-full"
-        imageClassName="opacity-85 group-hover:opacity-100 transition-opacity duration-500"
         showIndicators={false}
         showSlideOverlay={false}
       />
@@ -101,8 +100,6 @@ export function Projects() {
                                 <Icon className="text-5xl opacity-30" />
                               </div>
                             )}
-
-                            <div className="project-cinematic-overlay" aria-hidden="true" />
                           </div>
                         </div>
 

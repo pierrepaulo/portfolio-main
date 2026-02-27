@@ -54,7 +54,7 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
 
   return (
     <main className="case-layout py-12 sm:py-16 lg:py-20">
-      <Container className="relative z-10 space-y-8">
+      <Container className="relative space-y-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Button
             asChild
@@ -71,7 +71,7 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
 
         {slides.length > 0 ? (
           <section className="case-top-carousel">
-            <Carousel slides={slides} className="h-full w-full" showIndicators />
+            <Carousel slides={slides} className="h-full w-full" showIndicators showSlideOverlay={false} />
           </section>
         ) : null}
 
