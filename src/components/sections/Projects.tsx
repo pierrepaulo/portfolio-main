@@ -17,7 +17,11 @@ type ProjectMediaProps = {
   priorityFirstImage: boolean;
 };
 
-function ProjectMedia({ title, images, priorityFirstImage }: ProjectMediaProps) {
+function ProjectMedia({
+  title,
+  images,
+  priorityFirstImage,
+}: ProjectMediaProps) {
   const hasImages = images.length > 0;
   const slides: CarouselSlide[] = images.map((image, index) => ({
     src: image,
@@ -45,9 +49,12 @@ export function Projects() {
   const projectList = getProjects();
 
   return (
-    <section id="projetos" className="projects-timeline relative overflow-hidden py-24 sm:py-28">
+    <section
+      id="projetos"
+      className="projects-timeline relative overflow-hidden py-24 sm:py-28"
+    >
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(0,240,255,0.12)_0%,transparent_46%),radial-gradient(circle_at_88%_30%,rgba(0,112,255,0.12)_0%,transparent_44%),radial-gradient(circle_at_50%_88%,rgba(0,240,255,0.08)_0%,transparent_50%)]"
+        className="pointer-events-none absolute inset-0 "
         aria-hidden="true"
       />
 
@@ -78,7 +85,7 @@ export function Projects() {
                   delay={index * 0.08}
                 >
                   <li className="project-entry w-full">
-                    <article className="project-panel group">
+                    <article className="project-panel glass-card-subtle glass-card-subtle--interactive group">
                       <div className="project-panel-grid">
                         <div
                           className={cn(
@@ -88,7 +95,7 @@ export function Projects() {
                               : "project-media-right lg:order-2",
                           )}
                         >
-                          <div className="project-cinematic-frame">
+                          <div className="project-cinematic-frame glass-card-subtle">
                             {hasImages ? (
                               <ProjectMedia
                                 title={project.title}
@@ -110,7 +117,9 @@ export function Projects() {
                           )}
                         >
                           <div className="project-title-wrap">
-                            <span className="project-kicker">Case Study {chapter}</span>
+                            <span className="project-kicker">
+                              Case Study {chapter}
+                            </span>
                             <h3 className="project-title text-xl font-bold text-white sm:text-2xl">
                               {project.title}
                             </h3>
@@ -119,9 +128,15 @@ export function Projects() {
                             </p>
                           </div>
 
-                          <ul className="project-highlights" aria-label={`Highlights de ${project.title}`}>
+                          <ul
+                            className="project-highlights"
+                            aria-label={`Highlights de ${project.title}`}
+                          >
                             {displayedHighlights.map((highlight) => (
-                              <li key={`${project.id}-${highlight}`} className="project-highlight-item">
+                              <li
+                                key={`${project.id}-${highlight}`}
+                                className="project-highlight-item"
+                              >
                                 {highlight}
                               </li>
                             ))}
@@ -145,7 +160,9 @@ export function Projects() {
                               size="sm"
                               className="bg-primary text-black hover:bg-white hover:text-black"
                             >
-                              <Link href={`/projetos/${project.slug}`}>Ver Case Study</Link>
+                              <Link href={`/projetos/${project.slug}`}>
+                                Ver Case Study
+                              </Link>
                             </Button>
                           </div>
                         </div>

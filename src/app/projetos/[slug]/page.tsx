@@ -70,12 +70,12 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
         </div>
 
         {slides.length > 0 ? (
-          <section className="case-top-carousel">
+          <section className="case-top-carousel glass-card-subtle">
             <Carousel slides={slides} className="h-full w-full" showIndicators showSlideOverlay={false} />
           </section>
         ) : null}
 
-        <section className="case-dossier">
+        <section className="case-dossier glass-card-subtle">
           <div>
             <div className="flex items-center gap-3 text-primary">
               <Icon className="text-2xl" aria-hidden="true" />
@@ -148,18 +148,18 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
         </section>
 
         <section className="case-grid">
-          <article className="case-panel">
+          <article className="case-panel glass-card-subtle">
             <h2 className="case-panel-title">Desafio</h2>
             <p className="case-panel-copy">{project.caseStudy.challenge}</p>
           </article>
 
-          <article className="case-panel">
+          <article className="case-panel glass-card-subtle">
             <h2 className="case-panel-title">Solucao</h2>
             <p className="case-panel-copy">{project.caseStudy.solution}</p>
           </article>
         </section>
 
-        <section className="case-panel">
+        <section className="case-panel glass-card-subtle">
           <h2 className="case-panel-title">Arquitetura aplicada</h2>
           <ul className="case-architecture-list">
             {project.caseStudy.architecture.map((item) => (
@@ -170,7 +170,7 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
           </ul>
         </section>
 
-        <section className="case-panel">
+        <section className="case-panel glass-card-subtle">
           <h2 className="case-panel-title">Resultado</h2>
           <p className="case-panel-copy">{project.caseStudy.outcome}</p>
         </section>

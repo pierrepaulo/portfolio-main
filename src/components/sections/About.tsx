@@ -35,7 +35,7 @@ export function About() {
           </Reveal>
 
           <Reveal direction="right">
-            <Card className="mx-auto w-full max-w-sm lift-glow">
+            <Card className="mx-auto w-full max-w-sm glass-card-subtle lift-glow">
               <CardContent className="flex flex-col items-center gap-4 text-center">
                 <Image
                   src="/images/profile.png"

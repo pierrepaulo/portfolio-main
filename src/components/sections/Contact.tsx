@@ -88,7 +88,7 @@ export function Contact() {
                   return (
                     <Card
                       key={channel.label}
-                      className="border-white/10 bg-black/40 py-0 hover:border-primary/50 transition-colors group"
+                      className="glass-card-subtle glass-card-subtle--interactive py-0 group"
                     >
                       <CardContent className="flex items-center gap-4 p-4">
                         <span className="flex h-12 w-12 items-center justify-center clip-chamfer-sm bg-primary/10 text-primary group-hover:bg-primary group-hover:text-black transition-all">
@@ -115,7 +115,7 @@ export function Contact() {
             </div>
           </Reveal>
           <Reveal direction="right" delay={0.4}>
-            <Card className="h-full border-white/10 bg-black/60 backdrop-blur-md py-0 tech-card">
+            <Card className="h-full glass-card-subtle py-0">
               <CardContent className="flex h-full flex-col p-6 sm:p-8">
                 <Form {...form}>
                   <form

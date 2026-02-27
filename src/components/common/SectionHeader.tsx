@@ -17,6 +17,10 @@ export function SectionHeader({
       <h2 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
         <SplitText text={title} />
       </h2>
+      <div
+        aria-hidden="true"
+        className="mx-auto mt-3 h-px w-20 bg-primary"
+      />
       <p className="mt-3 text-base text-muted-foreground sm:text-lg">
         {subtitle}
       </p>
