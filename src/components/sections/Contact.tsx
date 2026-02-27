@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Loader2, SendHorizontal } from "lucide-react";
 
 import { Container } from "../common/Container";
 import { SectionHeader } from "../common/SectionHeader";
@@ -88,7 +89,7 @@ export function Contact() {
                   return (
                     <Card
                       key={channel.label}
-                      className="glass-card-subtle glass-card-subtle--interactive py-0 group"
+                      className="surface-card surface-card--interactive py-0 group"
                     >
                       <CardContent className="flex items-center gap-4 p-4">
                         <span className="flex h-12 w-12 items-center justify-center clip-chamfer-sm bg-primary/10 text-primary group-hover:bg-primary group-hover:text-black transition-all">
@@ -115,7 +116,7 @@ export function Contact() {
             </div>
           </Reveal>
           <Reveal direction="right" delay={0.4}>
-            <Card className="h-full glass-card-subtle py-0">
+            <Card className="h-full surface-card py-0">
               <CardContent className="flex h-full flex-col p-6 sm:p-8">
                 <Form {...form}>
                   <form
@@ -214,8 +215,15 @@ export function Contact() {
                       <Button
                         type="submit"
                         disabled={form.formState.isSubmitting}
-                        className="clip-chamfer bg-primary text-black hover:bg-white hover:text-black font-bold tracking-wider px-8"
+                        size="md"
+                        variant="cta"
+                        className="group font-bold tracking-wider"
                       >
+                        {form.formState.isSubmitting ? (
+                          <Loader2 className="animate-spin" />
+                        ) : (
+                          <SendHorizontal className="btn-icon-slide" />
+                        )}
                         {form.formState.isSubmitting
                           ? "TRANSMITINDO..."
                           : "INICIAR TRANSMISSÃO"}

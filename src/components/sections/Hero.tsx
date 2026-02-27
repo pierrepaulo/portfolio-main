@@ -61,16 +61,16 @@ export function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-4 pl-6">
-              <Button asChild size="lg" className="group">
+              <Button asChild size="lg" variant="cta" className="group">
                 <a href="/cv-pierrepaulo.pdf" target="_blank" rel="noreferrer">
-                  <Download className="group-hover:translate-y-1 transition-transform" />
+                  <Download className="btn-icon-slide" />
                   DOWNLOAD CV
                 </a>
               </Button>
 
-              <Button asChild size="lg" variant="outline" className="group">
+              <Button asChild size="lg" variant="ctaOutline" className="group">
                 <a href="#projetos">
-                  <Cpu className="group-hover:rotate-90 transition-transform" />
+                  <Cpu className="btn-icon-slide" />
                   Ver Projetos
                 </a>
               </Button>
@@ -81,4 +81,3 @@ export function Hero() {
     </section>
   );
 }
-
