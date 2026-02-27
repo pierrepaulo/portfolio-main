@@ -1,29 +1,36 @@
 import type { LucideIcon } from "lucide-react";
+import { Bot, GitBranch } from "lucide-react";
+import type { IconType } from "react-icons";
 import {
-  Atom,
-  Braces,
-  Cloud,
-  Container,
-  Database,
-  FileJson2,
-  FlaskConical,
-  Gauge,
-  GitBranch,
-  Globe,
-  HardDrive,
-  KeyRound,
-  Layers3,
-  Network,
-  Server,
-  ShieldCheck,
-  TestTube2,
-  Wind,
-} from "lucide-react";
+  SiAmazonwebservices,
+  SiDocker,
+  SiDrizzle,
+  SiExpress,
+  SiFastify,
+  SiGithubactions,
+  SiJavascript,
+  SiJest,
+  SiJsonwebtokens,
+  SiMongodb,
+  SiNestjs,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPrisma,
+  SiPython,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+  SiVitest,
+  SiZod,
+} from "react-icons/si";
+
+type TechIcon = LucideIcon | IconType;
 
 export type Tech = {
   id: string;
   name: string;
-  icon: LucideIcon;
+  icon: TechIcon;
   color: string;
 };
 
@@ -31,91 +38,121 @@ export const techs: Tech[] = [
   {
     id: "typescript",
     name: "TypeScript",
-    icon: Braces,
+    icon: SiTypescript,
     color: "#3178C6",
   },
   {
     id: "javascript",
     name: "JavaScript",
-    icon: FileJson2,
+    icon: SiJavascript,
     color: "#F7DF1E",
+  },
+  {
+    id: "python",
+    name: "Python",
+    icon: SiPython,
+    color: "#3776AB",
   },
   {
     id: "nodejs",
     name: "Node.js",
-    icon: Server,
+    icon: SiNodedotjs,
     color: "#339933",
+  },
+  {
+    id: "nestjs",
+    name: "NestJS",
+    icon: SiNestjs,
+    color: "#E0234E",
   },
   {
     id: "express",
     name: "Express",
-    icon: Network,
-    color: "#FFFFFF",
+    icon: SiExpress,
+    color: "#000000",
   },
   {
     id: "fastify",
     name: "Fastify",
-    icon: Gauge,
-    color: "#FFFFFF",
+    icon: SiFastify,
+    color: "#000000",
+  },
+  {
+    id: "ai-agents",
+    name: "AI Agents",
+    icon: Bot,
+    color: "#00F0FF",
   },
   {
     id: "postgresql",
     name: "PostgreSQL",
-    icon: Database,
+    icon: SiPostgresql,
     color: "#4169E1",
   },
   {
     id: "mongodb",
     name: "MongoDB",
-    icon: HardDrive,
+    icon: SiMongodb,
     color: "#47A248",
   },
   {
     id: "prisma",
     name: "Prisma",
-    icon: Layers3,
-    color: "#339933",
+    icon: SiPrisma,
+    color: "#2D3748",
+  },
+  {
+    id: "drizzle",
+    name: "Drizzle",
+    icon: SiDrizzle,
+    color: "#C5F74F",
   },
   {
     id: "docker",
     name: "Docker",
-    icon: Container,
+    icon: SiDocker,
     color: "#2496ED",
   },
   {
     id: "aws",
     name: "AWS",
-    icon: Cloud,
+    icon: SiAmazonwebservices,
     color: "#FF9900",
+  },
+  {
+    id: "github-actions",
+    name: "GitHub Actions",
+    icon: SiGithubactions,
+    color: "#2088FF",
   },
   {
     id: "react",
     name: "React",
-    icon: Atom,
+    icon: SiReact,
     color: "#61DAFB",
   },
   {
     id: "nextjs",
     name: "Next.js",
-    icon: Globe,
-    color: "#FFFFFF",
+    icon: SiNextdotjs,
+    color: "#000000",
   },
   {
     id: "tailwind",
     name: "Tailwind CSS",
-    icon: Wind,
+    icon: SiTailwindcss,
     color: "#38BDF8",
   },
   {
     id: "jwt",
     name: "JWT",
-    icon: KeyRound,
-    color: "#FFFFFF",
+    icon: SiJsonwebtokens,
+    color: "#000000",
   },
   {
     id: "zod",
     name: "Zod",
-    icon: ShieldCheck,
+    icon: SiZod,
     color: "#3E67B1",
   },
   {
@@ -127,14 +164,13 @@ export const techs: Tech[] = [
   {
     id: "vitest",
     name: "Vitest",
-    icon: FlaskConical,
+    icon: SiVitest,
     color: "#6E9F18",
   },
   {
     id: "jest",
     name: "Jest",
-    icon: TestTube2,
+    icon: SiJest,
     color: "#C21325",
   },
 ];
-

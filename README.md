@@ -139,11 +139,12 @@ Projetos reais com foco em impacto, arquitetura e boas práticas:
 
 ### 4. **Tecnologias**
 
-Grid visual com 18 tecnologias:
+Grid visual com 23 tecnologias:
 
-- **Backend:** Node.js, Express, Fastify, PostgreSQL, MongoDB, Prisma
+- **Backend e Dados:** Node.js, NestJS, Express, Fastify, Python, PostgreSQL, MongoDB, Prisma, Drizzle
 - **Frontend:** React, Next.js, Tailwind CSS, TanStack Query
-- **Ferramentas:** TypeScript, Docker, AWS, Jest, Vitest, Zod, JWT
+- **IA:** AI Agents
+- **Ferramentas:** TypeScript, Docker, AWS, GitHub Actions, Jest, Vitest, Zod, JWT
 
 ### 5. **Contato**
 
