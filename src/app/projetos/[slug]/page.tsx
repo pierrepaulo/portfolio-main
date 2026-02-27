@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 
   return {
-    title: `${project.title} | Case Study | Pierre Paulo`,
+    title: `${project.title} | Estudo de Caso | Pierre Paulo`,
     description: project.teaser,
   };
 }
@@ -58,24 +58,31 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Button
             asChild
-            variant="outline"
-            className="border-primary/45 text-primary hover:bg-primary/15"
+            size="md"
+            variant="ctaOutline"
+            className="group"
           >
             <Link href="/#projetos" className="flex items-center gap-2">
-              <ArrowLeft size={16} /> Voltar para projetos
+              <ArrowLeft size={16} className="btn-icon-slide-back" /> Voltar para projetos
             </Link>
           </Button>
 
-          <span className="case-chip">Case Study</span>
+          <span className="case-chip">Estudo de Caso</span>
         </div>
 
         {slides.length > 0 ? (
-          <section className="case-top-carousel glass-card-subtle">
-            <Carousel slides={slides} className="h-full w-full" showIndicators showSlideOverlay={false} />
+          <section className="case-top-carousel surface-card">
+            <Carousel
+              slides={slides}
+              className="h-full w-full"
+              imageClassName="case-card-image"
+              showIndicators
+              showSlideOverlay={false}
+            />
           </section>
         ) : null}
 
-        <section className="case-dossier glass-card-subtle">
+        <section className="case-dossier surface-card">
           <div>
             <div className="flex items-center gap-3 text-primary">
               <Icon className="text-2xl" aria-hidden="true" />
@@ -111,8 +118,9 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
                 {liveUrl ? (
                   <Button
                     asChild
-                    size="sm"
-                    className="bg-primary text-black hover:bg-white hover:text-black"
+                    size="md"
+                    variant="cta"
+                    className="group"
                   >
                     <a
                       href={liveUrl}
@@ -120,7 +128,7 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
                       rel="noreferrer"
                       className="flex items-center gap-2"
                     >
-                      <ExternalLink size={16} /> Ver deploy
+                      <ExternalLink size={16} className="btn-icon-slide" /> Ver deploy
                     </a>
                   </Button>
                 ) : null}
@@ -128,9 +136,9 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
                 {project.repoUrl ? (
                   <Button
                     asChild
-                    size="sm"
-                    variant="outline"
-                    className="border-primary/45 text-primary hover:bg-primary/15"
+                    size="md"
+                    variant="ctaOutline"
+                    className="group"
                   >
                     <a
                       href={project.repoUrl}
@@ -138,7 +146,7 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
                       rel="noreferrer"
                       className="flex items-center gap-2"
                     >
-                      <Github size={16} /> Ver codigo
+                      <Github size={16} className="btn-icon-slide" /> Ver codigo
                     </a>
                   </Button>
                 ) : null}
@@ -148,18 +156,18 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
         </section>
 
         <section className="case-grid">
-          <article className="case-panel glass-card-subtle">
+          <article className="case-panel surface-card">
             <h2 className="case-panel-title">Desafio</h2>
             <p className="case-panel-copy">{project.caseStudy.challenge}</p>
           </article>
 
-          <article className="case-panel glass-card-subtle">
+          <article className="case-panel surface-card">
             <h2 className="case-panel-title">Solucao</h2>
             <p className="case-panel-copy">{project.caseStudy.solution}</p>
           </article>
         </section>
 
-        <section className="case-panel glass-card-subtle">
+        <section className="case-panel surface-card">
           <h2 className="case-panel-title">Arquitetura aplicada</h2>
           <ul className="case-architecture-list">
             {project.caseStudy.architecture.map((item) => (
@@ -170,7 +178,7 @@ export default async function ProjectCasePage({ params }: ProjectPageProps) {
           </ul>
         </section>
 
-        <section className="case-panel glass-card-subtle">
+        <section className="case-panel surface-card">
           <h2 className="case-panel-title">Resultado</h2>
           <p className="case-panel-copy">{project.caseStudy.outcome}</p>
         </section>

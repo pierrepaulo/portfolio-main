@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { FileText } from "lucide-react";
 
 import { SectionHeader } from "../common/SectionHeader";
 import { Reveal } from "../common/Reveal";
@@ -38,6 +39,7 @@ function ProjectMedia({
       <Carousel
         slides={slides}
         className="h-full w-full"
+        imageClassName="project-card-image"
         showIndicators={false}
         showSlideOverlay={false}
       />
@@ -62,7 +64,7 @@ export function Projects() {
         <Reveal direction="left">
           <SectionHeader
             title="Projetos em destaque"
-            subtitle="Timeline de produtos reais, com contexto tecnico e caminho completo ate o case study."
+            subtitle="Timeline de produtos reais, com contexto tecnico e caminho completo ate o estudo de caso."
             className="mb-16"
           />
         </Reveal>
@@ -85,17 +87,17 @@ export function Projects() {
                   delay={index * 0.08}
                 >
                   <li className="project-entry w-full">
-                    <article className="project-panel glass-card-subtle glass-card-subtle--interactive group">
-                      <div className="project-panel-grid">
-                        <div
-                          className={cn(
-                            "project-media-slot",
-                            isImageLeft
-                              ? "project-media-left lg:order-1"
-                              : "project-media-right lg:order-2",
-                          )}
-                        >
-                          <div className="project-cinematic-frame glass-card-subtle">
+                    <article className="project-panel surface-card surface-card--interactive group">
+                      <div
+                        className={cn(
+                          "project-panel-grid",
+                          isImageLeft
+                            ? "project-panel-grid--image-left"
+                            : "project-panel-grid--image-right",
+                        )}
+                      >
+                        <div className="project-media-slot">
+                          <div className="project-cinematic-frame">
                             {hasImages ? (
                               <ProjectMedia
                                 title={project.title}
@@ -110,15 +112,10 @@ export function Projects() {
                           </div>
                         </div>
 
-                        <div
-                          className={cn(
-                            "project-panel-body",
-                            isImageLeft ? "lg:order-2" : "lg:order-1",
-                          )}
-                        >
+                        <div className="project-panel-body">
                           <div className="project-title-wrap">
                             <span className="project-kicker">
-                              Case Study {chapter}
+                              Estudo de Caso {chapter}
                             </span>
                             <h3 className="project-title text-xl font-bold text-white sm:text-2xl">
                               {project.title}
@@ -157,11 +154,13 @@ export function Projects() {
                           <div className="project-actions mt-2 flex flex-wrap gap-3">
                             <Button
                               asChild
-                              size="sm"
-                              className="bg-primary text-black hover:bg-white hover:text-black"
+                              size="md"
+                              variant="cta"
+                              className="group"
                             >
                               <Link href={`/projetos/${project.slug}`}>
-                                Ver Case Study
+                                <FileText className="btn-icon-slide" />
+                                Ver Estudo de Caso
                               </Link>
                             </Button>
                           </div>
