@@ -175,11 +175,11 @@ export function Carousel({
         <div className="pointer-events-none absolute inset-x-0 top-1/2 z-30 flex -translate-y-1/2 items-center justify-between px-3">
           <Button
             type="button"
-            size="icon"
-            variant="outline"
+            size="iconLg"
+            variant="carousel"
             onClick={handlePrev}
             disabled={!loop && activeIndex === 0}
-            className="pointer-events-auto border-primary/55 bg-black/45 text-primary hover:bg-primary hover:text-black"
+            className="pointer-events-auto"
             aria-label="Imagem anterior"
           >
             <ChevronLeft />
@@ -187,11 +187,11 @@ export function Carousel({
 
           <Button
             type="button"
-            size="icon"
-            variant="outline"
+            size="iconLg"
+            variant="carousel"
             onClick={handleNext}
             disabled={!loop && activeIndex === slideCount - 1}
-            className="pointer-events-auto border-primary/55 bg-black/45 text-primary hover:bg-primary hover:text-black"
+            className="pointer-events-auto"
             aria-label="Proxima imagem"
           >
             <ChevronRight />

@@ -5,12 +5,17 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive relative overflow-hidden",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:[border-color:var(--btn-border-hover)] focus-visible:ring-[3px] focus-visible:ring-[var(--btn-focus-ring)] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive motion-safe:active:translate-y-px relative overflow-hidden",
   {
     variants: {
       variant: {
         default:
           "bg-primary text-primary-foreground hover:bg-primary/80 hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] border border-transparent",
+        cta: "border [border-width:var(--btn-border-width)] [border-color:var(--btn-cta-border)] bg-[var(--btn-cta-bg)] text-black hover:[border-color:var(--btn-cta-border-hover)] hover:bg-[var(--btn-cta-bg-hover)] hover:text-black hover:shadow-[var(--btn-shadow-hover)]",
+        ctaOutline:
+          "border [border-width:var(--btn-border-width)] [border-color:var(--btn-cta-border)] bg-[var(--btn-cta-outline-bg)] text-primary backdrop-blur-sm hover:[border-color:var(--btn-cta-border-hover)] hover:bg-[var(--btn-cta-outline-bg-hover)] hover:text-primary hover:shadow-[var(--btn-shadow-hover)]",
+        carousel:
+          "border [border-width:var(--btn-border-width)] [border-color:var(--btn-border)] bg-[var(--btn-carousel-bg)] text-primary backdrop-blur-sm hover:[border-color:var(--btn-border-hover)] hover:bg-[var(--btn-carousel-bg-hover)] hover:text-black hover:shadow-[var(--btn-shadow-hover)]",
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -23,8 +28,10 @@ const buttonVariants = cva(
       size: {
         default: "h-10 px-6 py-2 has-[>svg]:px-4 clip-chamfer",
         sm: "h-9 px-4 has-[>svg]:px-3 clip-chamfer-sm",
+        md: "h-11 px-6 has-[>svg]:px-4 clip-chamfer",
         lg: "h-12 px-8 has-[>svg]:px-6 clip-chamfer-lg",
         icon: "size-10 clip-chamfer-sm",
+        iconLg: "size-11 clip-chamfer-sm",
       },
     },
     defaultVariants: {
