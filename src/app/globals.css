@@ -344,6 +344,18 @@ h6 {
     );
   }
 
+  /* Oposto: Corta Top-Left e Bottom-Right apenas */
+  .clip-chamfer-opposite {
+    clip-path: polygon(
+      24px 0,
+      100% 0,
+      100% calc(100% - 24px),
+      calc(100% - 24px) 100%,
+      0 100%,
+      0 24px
+    );
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .btn-icon-slide,
     .btn-icon-slide-back {
@@ -564,8 +576,16 @@ h6 {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 14% 14%, rgba(0, 240, 255, 0.11), transparent 40%),
-      radial-gradient(circle at 90% 20%, rgba(0, 100, 255, 0.12), transparent 44%);
+      radial-gradient(
+        circle at 14% 14%,
+        rgba(0, 240, 255, 0.11),
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 90% 20%,
+        rgba(0, 100, 255, 0.12),
+        transparent 44%
+      );
     pointer-events: none;
   }
 
