@@ -46,7 +46,7 @@ function IconButton({
         "inline-flex h-11 w-11 items-center justify-center rounded-full border text-base transition-[box-shadow,color,background-color,border-color,transform] duration-300 hover:shadow-[0_10px_24px_rgb(var(--brand-rgb)/0.35)] focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-brand",
         variant === "solid"
           ? "border-transparent bg-linear-to-r from-brand-start to-brand-end text-foreground"
-          : "border-primary/40 text-muted-foreground hover:border-brand hover:bg-primary/5 hover:text-foreground hover:shadow-[0_0_15px_rgba(0,240,255,0.4)]",
+          : "border-primary text-muted-foreground hover:border-brand hover:bg-primary/5 hover:text-foreground hover:shadow-[0_0_15px_rgba(0,240,255,0.4)]",
         className,
       )}
       {...props}
