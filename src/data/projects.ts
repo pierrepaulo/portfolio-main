@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Building2, Dumbbell, Store, UtensilsCrossed } from "lucide-react";
+import { Building2, Dumbbell, Package, Store, UtensilsCrossed } from "lucide-react";
 
 export type CaseStudy = {
   challenge: string;
@@ -24,6 +24,57 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    id: "stock-control",
+    slug: "stock-control",
+    title: "Stock Control",
+    icon: Package,
+    teaser:
+      "Sistema completo de gerenciamento de estoque com dashboard analítico, movimentações e 103 testes automatizados.",
+    description:
+      "Stock Control é um sistema full stack de gerenciamento de estoque com controle de produtos, categorias, movimentações e dashboard analítico. O administrador gerencia usuários, categorias e produtos com limites de quantidade (mínimo/máximo), enquanto as movimentações de entrada e saída atualizam o estoque automaticamente em transações seguras. O dashboard exibe valor total do estoque, gráfico de entradas/saídas, alertas de estoque baixo e produtos estagnados. Conta com autenticação Bearer, documentação Swagger, dark mode e 103 testes automatizados (unitários, integração e E2E) com CI/CD via GitHub Actions.",
+    highlights: [
+      "Dashboard analítico com gráficos e alertas de estoque",
+      "103 testes automatizados com CI/CD (GitHub Actions)",
+      "Movimentações com transações seguras e soft-delete",
+    ],
+    techs: [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "Zod",
+      "TanStack Query",
+      "Vitest",
+    ],
+    images: [
+      "/images/projects/StockControl/image-1.png",
+      "/images/projects/StockControl/image-2.png",
+      "/images/projects/StockControl/image-3.png",
+      "/images/projects/StockControl/image-4.png",
+      "/images/projects/StockControl/image-5.png",
+      "/images/projects/StockControl/image-6.png",
+    ],
+    liveUrl: "",
+    repoUrl: "https://github.com/pierrepaulo/stock-control",
+    caseStudy: {
+      challenge:
+        "Construir um sistema de estoque confiável com rastreabilidade completa de movimentações, alertas inteligentes e cobertura de testes robusta.",
+      solution:
+        "Desenvolver uma arquitetura full stack com monorepo, transações seguras para movimentações, dashboard analítico com múltiplos endpoints e pipeline de CI/CD com 103 testes automatizados.",
+      architecture: [
+        "API Express 5 com arquitetura Routes → Controllers → Services → Drizzle ORM",
+        "Frontend Next.js 16 App Router com TanStack Query e React Hook Form",
+        "PostgreSQL com soft-delete e transações seguras para movimentações",
+        "103 testes (Vitest + Testcontainers + Supertest) com CI/CD no GitHub Actions",
+      ],
+      outcome:
+        "Resultado: sistema de estoque com operação completa, rastreabilidade de movimentações, dashboard com visibilidade analítica e qualidade garantida por cobertura de testes acima de 80%.",
+    },
+  },
   {
     id: "restaurant-app",
     slug: "restaurant-app",
