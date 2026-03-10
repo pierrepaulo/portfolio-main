@@ -36,8 +36,8 @@ export function Hero() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-8 flex flex-col gap-8">
             <div className="border-l-2 border-primary/30 pl-6 relative backdrop-blur-none md:backdrop-blur-sm bg-black/20 py-4 rounded-r-xl">
-              <div className="absolute -left-[5px] top-0 w-2 h-2 bg-primary" />
-              <div className="absolute -left-[5px] bottom-0 w-2 h-2 bg-primary" />
+              <div className="absolute -left-1.25 top-0 w-2 h-2 bg-primary" />
+              <div className="absolute -left-1.25 bottom-0 w-2 h-2 bg-primary" />
 
               <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-4 font-mono">
                 <Terminal size={16} aria-hidden="true" />
