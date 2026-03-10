@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Orbitron, Rajdhani } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { PerformanceClassProvider } from "@/components/providers/PerformanceClassProvider";
 import "./globals.css";
 
@@ -44,6 +46,8 @@ export default function RootLayout({
         <PerformanceClassProvider />
         <div className="scanlines" aria-hidden="true" />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
